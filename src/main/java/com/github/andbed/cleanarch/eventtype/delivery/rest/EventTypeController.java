@@ -6,7 +6,7 @@ import com.github.andbed.cleanarch.common.Command;
 import com.github.andbed.cleanarch.common.Factory;
 import com.github.andbed.cleanarch.common.MessageCode;
 import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypeDTO;
-import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypesReciever;
+import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypesReceiver;
 
 public class EventTypeController {
 
@@ -18,7 +18,7 @@ public class EventTypeController {
 		return presenter.generateResponse();
 	}
 
-	public static class EventTypesPresenter implements EventTypesReciever {
+	public static class EventTypesPresenter implements EventTypesReceiver {
 
 		private List<EventTypeDTO> eventTypes;
 

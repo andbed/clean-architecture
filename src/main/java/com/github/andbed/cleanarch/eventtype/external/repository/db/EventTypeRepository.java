@@ -1,4 +1,4 @@
-package com.github.andbed.cleanarch.eventtype.external.repository;
+package com.github.andbed.cleanarch.eventtype.external.repository.db;
 
 import java.util.ArrayList;
 import java.util.List;

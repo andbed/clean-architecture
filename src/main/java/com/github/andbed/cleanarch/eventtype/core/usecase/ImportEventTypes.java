@@ -7,7 +7,7 @@ import com.github.andbed.cleanarch.common.Command;
 import com.github.andbed.cleanarch.common.MessageCode;
 import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypeDTO;
 import com.github.andbed.cleanarch.eventtype.core.boundary.ImportReceiver;
-import com.github.andbed.cleanarch.eventtype.core.gateway.EmailSender;
+import com.github.andbed.cleanarch.eventtype.core.gateway.Notificator;
 import com.github.andbed.cleanarch.eventtype.core.gateway.EventTypesFileProvider;
 import com.github.andbed.cleanarch.eventtype.core.gateway.EventTypesProvider;
 import com.github.andbed.cleanarch.eventtype.core.gateway.XMLParser;
@@ -18,14 +18,14 @@ public class ImportEventTypes implements Command {
 	private static final String MESSAGE = "EventTypes were successfuly parsed and persisted";
 	private final EventTypesFileProvider fileProvider;
 	private final EventTypesProvider eventTypesProvider;
-	private final EmailSender sender;
+	private final Notificator notificator;
 	private final XMLParser xmlParser;
 	private final ImportReceiver receiver;
 
-	public ImportEventTypes(EventTypesFileProvider fileProvider, EventTypesProvider eventTypesProvider, EmailSender sender, XMLParser xmlParser, ImportReceiver receiver) {
+	public ImportEventTypes(EventTypesFileProvider fileProvider, EventTypesProvider eventTypesProvider, Notificator notificator, XMLParser xmlParser, ImportReceiver receiver) {
 		this.fileProvider = fileProvider;
 		this.eventTypesProvider = eventTypesProvider;
-		this.sender = sender;
+		this.notificator = notificator;
 		this.xmlParser = xmlParser;
 		this.receiver = receiver;
 	}
@@ -49,7 +49,7 @@ public class ImportEventTypes implements Command {
 					.map(e -> convert(e))
 					.collect(Collectors.toList());
 
-			sender.notifyAdministrator(MESSAGE);
+			notificator.notifyAdministrator(MESSAGE);
 
 			receiver.displayResult(dtos);
 

@@ -6,16 +6,16 @@ import java.util.stream.Collectors;
 import com.github.andbed.cleanarch.common.Command;
 import com.github.andbed.cleanarch.common.MessageCode;
 import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypeDTO;
-import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypesReciever;
+import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypesReceiver;
 import com.github.andbed.cleanarch.eventtype.core.gateway.EventTypesProvider;
 import com.github.andbed.cleanarch.eventtype.core.usecase.entity.EventType;
 
 public class GetAllEventTypes implements Command {
 
 	private final EventTypesProvider provider;
-	private final EventTypesReciever reciever;
+	private final EventTypesReceiver reciever;
 
-	public GetAllEventTypes(EventTypesProvider provider, EventTypesReciever reciever) {
+	public GetAllEventTypes(EventTypesProvider provider, EventTypesReceiver reciever) {
 		this.provider = provider;
 		this.reciever = reciever;
 	}
