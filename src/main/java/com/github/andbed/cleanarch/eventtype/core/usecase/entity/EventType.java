@@ -3,10 +3,15 @@ package com.github.andbed.cleanarch.eventtype.core.usecase.entity;
 import java.util.List;
 
 public class EventType {
-	public boolean isDisplayed;
+
+	String name;
 
 	List<EventAttribute> attributes;
 
 	public void calculateInheritedAttributes() {
+	}
+
+	public boolean isDisplayed() {
+		return true;
 	}
 }

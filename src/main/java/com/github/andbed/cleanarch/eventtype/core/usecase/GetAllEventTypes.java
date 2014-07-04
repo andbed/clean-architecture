@@ -27,6 +27,7 @@ public class GetAllEventTypes implements Command {
 
 			if (allEventTypes.size() > 0) {
 				List<EventTypeResponseModel> eventTypes = allEventTypes.stream()
+						.filter(e -> e.isDisplayed())
 						.map(e -> convert(e))
 						.collect(Collectors.toList());
 

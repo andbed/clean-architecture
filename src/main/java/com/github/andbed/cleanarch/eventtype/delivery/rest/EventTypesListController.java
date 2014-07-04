@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypeRequestModel;
 import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypeResponseModel;
 import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypesListPresenter;
 import com.github.andbed.cleanarch.util.common.Command;
@@ -22,10 +23,11 @@ public class EventTypesListController {
 	public static final String URL = "/event";
 
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<Resources<EventTypeResponseModel>> getAllEventTypes() {
+	public ResponseEntity<Resources<EventTypeResponseModel>> getAllEventTypes(EventTypeRequestModel requestModel) {
 
 		Presenter presenter = new Presenter();
-		Command getAllEventTypes = Factory.createGetAllEventTypesCommand(presenter);
+		Command getAllEventTypes = Factory.createGetAllEventTypesCommand(presenter, requestModel);
+
 		getAllEventTypes.execute();
 
 		return presenter.generateResponse();

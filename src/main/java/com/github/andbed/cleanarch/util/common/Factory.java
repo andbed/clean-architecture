@@ -1,5 +1,6 @@
 package com.github.andbed.cleanarch.util.common;
 
+import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypeRequestModel;
 import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypesListPresenter;
 import com.github.andbed.cleanarch.eventtype.core.boundary.ImportPresenter;
 import com.github.andbed.cleanarch.eventtype.core.gateway.EventTypesFileProvider;
@@ -15,16 +16,16 @@ import com.github.andbed.cleanarch.eventtype.external.repository.db.EventTypeRep
 
 public class Factory {
 
-	public static Command createGetAllEventTypesCommand(EventTypesListPresenter presenter) {
-		return new GetAllEventTypes(createEventTypesProvider(), presenter);
+	public static Command createGetAllEventTypesCommand(EventTypesListPresenter presenter, EventTypeRequestModel requestModel) {
+		return new GetAllEventTypes(createEventTypesProvider(requestModel), presenter);
 	}
 
-	private static EventTypesProvider createEventTypesProvider() {
-		return new EventTypeRepository();
+	private static EventTypesProvider createEventTypesProvider(EventTypeRequestModel requestModel) {
+		return new EventTypeRepository(requestModel);
 	}
 
 	public static Command createImportEventTypesCommand(ImportPresenter presenter) {
-		return new ImportEventTypes(createFileProvider(), createEventTypesProvider(), createNotifier(), createXMLParser(), presenter);
+		return new ImportEventTypes(createFileProvider(), createEventTypesProvider(null), createNotifier(), createXMLParser(), presenter);
 	}
 
 	private static XMLParser createXMLParser() {

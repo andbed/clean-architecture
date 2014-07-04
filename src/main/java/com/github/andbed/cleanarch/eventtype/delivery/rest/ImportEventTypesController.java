@@ -15,7 +15,7 @@ public class ImportEventTypesController {
 		return presenter.generateResponse();
 	}
 
-	public static class Presenter implements ImportPresenter {
+	static class Presenter implements ImportPresenter {
 
 		private boolean result;
 
