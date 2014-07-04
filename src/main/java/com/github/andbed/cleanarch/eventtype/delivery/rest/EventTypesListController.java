@@ -9,11 +9,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.github.andbed.cleanarch.common.Command;
-import com.github.andbed.cleanarch.common.Factory;
-import com.github.andbed.cleanarch.common.MessageCode;
 import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypeResponseModel;
 import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypesListPresenter;
+import com.github.andbed.cleanarch.util.common.Command;
+import com.github.andbed.cleanarch.util.common.Factory;
+import com.github.andbed.cleanarch.util.common.MessageCode;
 
 @Controller
 @RequestMapping(EventTypesListController.URL)

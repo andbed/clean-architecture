@@ -2,14 +2,14 @@ package com.github.andbed.cleanarch.eventtype.core.usecase;
 
 import java.util.List;
 
-import com.github.andbed.cleanarch.common.Command;
-import com.github.andbed.cleanarch.common.MessageCode;
 import com.github.andbed.cleanarch.eventtype.core.boundary.ImportPresenter;
 import com.github.andbed.cleanarch.eventtype.core.gateway.EventTypesFileProvider;
 import com.github.andbed.cleanarch.eventtype.core.gateway.EventTypesProvider;
 import com.github.andbed.cleanarch.eventtype.core.gateway.Notifier;
 import com.github.andbed.cleanarch.eventtype.core.gateway.XMLParser;
 import com.github.andbed.cleanarch.eventtype.core.usecase.entity.EventType;
+import com.github.andbed.cleanarch.util.common.Command;
+import com.github.andbed.cleanarch.util.common.MessageCode;
 
 public class ImportEventTypes implements Command {
 

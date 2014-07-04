@@ -1,4 +1,4 @@
-package com.github.andbed.cleanarch.common;
+package com.github.andbed.cleanarch.util.common;
 
 import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypesListPresenter;
 import com.github.andbed.cleanarch.eventtype.core.boundary.ImportPresenter;

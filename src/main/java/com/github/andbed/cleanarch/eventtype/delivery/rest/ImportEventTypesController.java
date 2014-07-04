@@ -1,9 +1,9 @@
 package com.github.andbed.cleanarch.eventtype.delivery.rest;
 
-import com.github.andbed.cleanarch.common.Command;
-import com.github.andbed.cleanarch.common.Factory;
-import com.github.andbed.cleanarch.common.MessageCode;
 import com.github.andbed.cleanarch.eventtype.core.boundary.ImportPresenter;
+import com.github.andbed.cleanarch.util.common.Command;
+import com.github.andbed.cleanarch.util.common.Factory;
+import com.github.andbed.cleanarch.util.common.MessageCode;
 
 public class ImportEventTypesController {
 
