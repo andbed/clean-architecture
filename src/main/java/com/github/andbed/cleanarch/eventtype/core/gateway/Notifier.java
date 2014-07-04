@@ -1,6 +1,6 @@
 package com.github.andbed.cleanarch.eventtype.core.gateway;
 
-public interface Notificator {
+public interface Notifier {
 
 	void notifyAdministrator(String message);
 

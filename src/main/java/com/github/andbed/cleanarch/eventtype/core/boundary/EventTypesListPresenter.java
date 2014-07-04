@@ -4,9 +4,9 @@ import java.util.List;
 
 import com.github.andbed.cleanarch.common.MessageCode;
 
-public interface EventTypesReceiver {
+public interface EventTypesListPresenter {
 
 	void sendMessage(MessageCode code);
 
-	void displayValues(List<EventTypeDTO> dtos);
+	void sendResult(List<EventTypeResponseModel> events);
 }

@@ -5,19 +5,19 @@ import java.util.stream.Collectors;
 
 import com.github.andbed.cleanarch.common.Command;
 import com.github.andbed.cleanarch.common.MessageCode;
-import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypeDTO;
-import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypesReceiver;
+import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypeResponseModel;
+import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypesListPresenter;
 import com.github.andbed.cleanarch.eventtype.core.gateway.EventTypesProvider;
 import com.github.andbed.cleanarch.eventtype.core.usecase.entity.EventType;
 
 public class GetAllEventTypes implements Command {
 
 	private final EventTypesProvider provider;
-	private final EventTypesReceiver reciever;
+	private final EventTypesListPresenter presenter;
 
-	public GetAllEventTypes(EventTypesProvider provider, EventTypesReceiver reciever) {
+	public GetAllEventTypes(EventTypesProvider provider, EventTypesListPresenter reciever) {
 		this.provider = provider;
-		this.reciever = reciever;
+		this.presenter = reciever;
 	}
 
 	@Override
@@ -26,21 +26,21 @@ public class GetAllEventTypes implements Command {
 			List<EventType> allEventTypes = provider.findAll();
 
 			if (allEventTypes.size() > 0) {
-				List<EventTypeDTO> dtos = allEventTypes.stream()
+				List<EventTypeResponseModel> dtos = allEventTypes.stream()
 						.map(e -> convert(e))
 						.collect(Collectors.toList());
 
-				reciever.displayValues(dtos);
+				presenter.sendResult(dtos);
 
 			} else {
-				reciever.sendMessage(MessageCode.NOT_FOUND);
+				presenter.sendMessage(MessageCode.NOT_FOUND);
 			}
 		} catch (Exception e) {
-			reciever.sendMessage(MessageCode.INTERNAL_SERVER_ERROR);
+			presenter.sendMessage(MessageCode.INTERNAL_SERVER_ERROR);
 		}
 	}
 
-	private EventTypeDTO convert(EventType e) {
-		return new EventTypeDTO();
+	private EventTypeResponseModel convert(EventType e) {
+		return new EventTypeResponseModel();
 	}
 }
