@@ -44,7 +44,8 @@ public class ImportEventTypes implements Command {
 
 		if (eventTypes.size() > 0) {
 
-			eventTypes.forEach(e -> e.calculateInheritedAttributes());
+			eventTypes.forEach(
+					e -> e.calculateInheritedAttributes());
 
 			eventTypesProvider.persist(eventTypes);
 

@@ -26,11 +26,11 @@ public class GetAllEventTypes implements Command {
 			List<EventType> allEventTypes = provider.findAll();
 
 			if (allEventTypes.size() > 0) {
-				List<EventTypeResponseModel> dtos = allEventTypes.stream()
+				List<EventTypeResponseModel> eventTypes = allEventTypes.stream()
 						.map(e -> convert(e))
 						.collect(Collectors.toList());
 
-				presenter.sendResult(dtos);
+				presenter.sendResult(eventTypes);
 
 			} else {
 				presenter.sendMessage(MessageCode.NOT_FOUND);
