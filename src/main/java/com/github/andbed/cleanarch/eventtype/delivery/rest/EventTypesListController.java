@@ -21,12 +21,17 @@ import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypesListPresent
 public class EventTypesListController {
 
 	public static final String URL = "/event";
+	private final Factory factory;
+
+	public EventTypesListController(Factory factory) {
+		this.factory = factory;
+	}
 
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<Resources<EventTypeResponseModel>> getAllEventTypes(EventTypeRequestModel requestModel) {
 
 		Presenter presenter = new Presenter();
-		Command getAllEventTypes = Factory.createGetAllEventTypesCommand(presenter, requestModel);
+		Command getAllEventTypes = factory.createGetAllEventTypesCommand(presenter, requestModel);
 
 		getAllEventTypes.execute();
 
@@ -34,7 +39,7 @@ public class EventTypesListController {
 
 	}
 
-	static class Presenter implements EventTypesListPresenter {
+	class Presenter implements EventTypesListPresenter {
 
 		private List<EventTypeResponseModel> eventTypes;
 		private MessageCode code;

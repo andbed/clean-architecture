@@ -16,27 +16,27 @@ import com.github.andbed.cleanarch.eventtype.external.repository.db.EventTypeRep
 
 public class Factory {
 
-	public static Command createGetAllEventTypesCommand(EventTypesListPresenter presenter, EventTypeRequestModel requestModel) {
+	public Command createGetAllEventTypesCommand(EventTypesListPresenter presenter, EventTypeRequestModel requestModel) {
 		return new GetAllEventTypes(createEventTypesProvider(requestModel), presenter);
 	}
 
-	private static EventTypesProvider createEventTypesProvider(EventTypeRequestModel requestModel) {
+	private EventTypesProvider createEventTypesProvider(EventTypeRequestModel requestModel) {
 		return new EventTypeRepository(requestModel);
 	}
 
-	public static Command createImportEventTypesCommand(ImportPresenter presenter) {
+	public Command createImportEventTypesCommand(ImportPresenter presenter) {
 		return new ImportEventTypes(createFileProvider(), createEventTypesProvider(null), createNotifier(), createXMLParser(), presenter);
 	}
 
-	private static XMLParser createXMLParser() {
+	private XMLParser createXMLParser() {
 		return new XMLParserSAX();
 	}
 
-	private static Notifier createNotifier() {
+	private Notifier createNotifier() {
 		return new EmailSender();
 	}
 
-	private static EventTypesFileProvider createFileProvider() {
+	private EventTypesFileProvider createFileProvider() {
 		return new EventTypeFileManager();
 	}
 
