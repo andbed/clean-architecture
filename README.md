@@ -1,7 +1,8 @@
 Clean-architecture
 ==================
 
-An example of the application built around clean architecture principles as defined by Uncle Bob.
+An example of the application built according to "The Clean Architecture" principles as defined by Uncle Bob:
+http://blog.8thlight.com/uncle-bob/2012/08/13/the-clean-architecture.html
 
 Version 0.0.1
 
