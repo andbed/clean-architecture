@@ -8,7 +8,7 @@ Version 0.0.1
 
 Next TODOs:
 * Add example of test to every type of component
-* Finish configuring app as a fully working Spring-based REST service
+* Finish configuring app as a fully working REST service (Spring based)
 * Add security
 * Add validation
 * Add another delivery mechanism
