@@ -4,9 +4,7 @@ import java.util.List;
 
 import com.github.andbed.cleanarch.eventtype.core.usecase.entity.EventType;
 
-public interface EventTypesProvider {
-
-	List<EventType> findAll();
+public interface EventTypesPersister {
 
 	void persist(List<EventType> eventTypes);
 

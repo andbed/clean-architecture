@@ -6,7 +6,7 @@ import com.github.andbed.cleanarch.common.Command;
 import com.github.andbed.cleanarch.common.MessageCode;
 import com.github.andbed.cleanarch.eventtype.core.boundary.ImportPresenter;
 import com.github.andbed.cleanarch.eventtype.core.gateway.EventTypesFileProvider;
-import com.github.andbed.cleanarch.eventtype.core.gateway.EventTypesProvider;
+import com.github.andbed.cleanarch.eventtype.core.gateway.EventTypesPersister;
 import com.github.andbed.cleanarch.eventtype.core.gateway.Notifier;
 import com.github.andbed.cleanarch.eventtype.core.gateway.XMLParser;
 import com.github.andbed.cleanarch.eventtype.core.usecase.entity.EventType;
@@ -16,14 +16,14 @@ public class ImportEventTypes implements Command {
 	private static final String MESSAGE = "EventTypes were successfuly parsed and persisted";
 	private static final boolean SUCCESS = true;
 	private final EventTypesFileProvider fileProvider;
-	private final EventTypesProvider eventTypesProvider;
+	private final EventTypesPersister eventTypesPersister;
 	private final Notifier notificator;
 	private final XMLParser xmlParser;
 	private final ImportPresenter presenter;
 
-	public ImportEventTypes(EventTypesFileProvider fileProvider, EventTypesProvider eventTypesProvider, Notifier notificator, XMLParser xmlParser, ImportPresenter receiver) {
+	public ImportEventTypes(EventTypesFileProvider fileProvider, EventTypesPersister eventTypesPersister, Notifier notificator, XMLParser xmlParser, ImportPresenter receiver) {
 		this.fileProvider = fileProvider;
-		this.eventTypesProvider = eventTypesProvider;
+		this.eventTypesPersister = eventTypesPersister;
 		this.notificator = notificator;
 		this.xmlParser = xmlParser;
 		this.presenter = receiver;
@@ -47,7 +47,7 @@ public class ImportEventTypes implements Command {
 			eventTypes.forEach(
 					e -> e.calculateInheritedAttributes());
 
-			eventTypesProvider.persist(eventTypes);
+			eventTypesPersister.persist(eventTypes);
 
 			notificator.notifyAdministrator(MESSAGE);
 

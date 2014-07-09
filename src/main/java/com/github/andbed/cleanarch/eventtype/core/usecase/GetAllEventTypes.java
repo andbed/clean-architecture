@@ -7,17 +7,17 @@ import com.github.andbed.cleanarch.common.Command;
 import com.github.andbed.cleanarch.common.MessageCode;
 import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypeResponseModel;
 import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypesListPresenter;
-import com.github.andbed.cleanarch.eventtype.core.gateway.EventTypesProvider;
+import com.github.andbed.cleanarch.eventtype.core.gateway.EventTypesFinder;
 import com.github.andbed.cleanarch.eventtype.core.usecase.entity.EventType;
 
 public class GetAllEventTypes implements Command {
 
-	private final EventTypesProvider provider;
+	private final EventTypesFinder provider;
 	private final EventTypesListPresenter presenter;
 
-	public GetAllEventTypes(EventTypesProvider provider, EventTypesListPresenter reciever) {
+	public GetAllEventTypes(EventTypesFinder provider, EventTypesListPresenter presenter) {
 		this.provider = provider;
-		this.presenter = reciever;
+		this.presenter = presenter;
 	}
 
 	@Override

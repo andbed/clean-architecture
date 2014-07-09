@@ -1,5 +1,7 @@
 package com.github.andbed.cleanarch.eventtype.delivery.rest;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,7 +23,7 @@ public class ImportEventTypesController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
-	public boolean importEventTypes() {
+	public ResponseEntity<Boolean> importEventTypes() {
 		Presenter presenter = new Presenter();
 		Command importEventTypes = factory.createImportEventTypesCommand(presenter);
 		importEventTypes.execute();
@@ -30,14 +32,18 @@ public class ImportEventTypesController {
 
 	class Presenter implements ImportPresenter {
 
-		private boolean result;
+		private Boolean result;
+		private MessageCode code;
 
 		@Override
-		public void sendMessage(MessageCode xmlNotValid) {
+		public void sendMessage(MessageCode messageCode) {
+			this.code = messageCode;
 		}
 
-		public boolean generateResponse() {
-			return result;
+		public ResponseEntity<Boolean> generateResponse() {
+			return code == null ?
+					new ResponseEntity<>(result, HttpStatus.OK) :
+					new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
 		@Override

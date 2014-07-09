@@ -4,15 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypeRequestModel;
-import com.github.andbed.cleanarch.eventtype.core.gateway.EventTypesProvider;
+import com.github.andbed.cleanarch.eventtype.core.gateway.EventTypesFinder;
+import com.github.andbed.cleanarch.eventtype.core.gateway.EventTypesPersister;
 import com.github.andbed.cleanarch.eventtype.core.usecase.entity.EventType;
 
-public class EventTypeRepository implements EventTypesProvider {
+public class EventTypeRepository implements EventTypesFinder, EventTypesPersister {
 
-	private final EventTypeRequestModel requestModel;
+	private EventTypeRequestModel requestModel;
 
 	public EventTypeRepository(EventTypeRequestModel requestModel) {
 		this.requestModel = requestModel;
+	}
+
+	public EventTypeRepository() {
 	}
 
 	@Override
@@ -25,7 +29,7 @@ public class EventTypeRepository implements EventTypesProvider {
 		return new ArrayList<EventType>();
 	}
 
-	private String createQueryBasedOnParams(EventTypeRequestModel requestModel2) {
+	private String createQueryBasedOnParams(EventTypeRequestModel params) {
 		return "";
 	}
 
