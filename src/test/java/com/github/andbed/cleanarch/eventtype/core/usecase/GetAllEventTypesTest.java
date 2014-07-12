@@ -2,6 +2,7 @@ package com.github.andbed.cleanarch.eventtype.core.usecase;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.util.CollectionUtils.isEmpty;
 
 import java.util.List;
 
@@ -12,6 +13,7 @@ import com.github.andbed.cleanarch.common.MessageCode;
 import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypeResponseModel;
 import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypesListPresenter;
 import com.github.andbed.cleanarch.eventtype.core.gateway.EventTypesFinder;
+import com.github.andbed.cleanarch.eventtype.core.usecase.entity.EventAttribute;
 import com.github.andbed.cleanarch.eventtype.core.usecase.entity.EventType;
 
 public class GetAllEventTypesTest {
@@ -24,17 +26,17 @@ public class GetAllEventTypesTest {
 	}
 
 	@Test
-	public void shouldGetFilterCorrectItems() {
+	public void shouldGetCorrectItemsToDisplay() {
 		// given
 		EventTypesFinder provider =
-				() -> newArrayList(new EventType(), new EventType());
+				() -> newArrayList(createEventType(1L, "et1", true), createEventType(2L, "et2", false));
 		GetAllEventTypes command = new GetAllEventTypes(provider, presenter);
 
 		// when
 		command.execute();
 
 		// then
-		assertThat(presenter.events).hasSize(2);
+		assertThat(presenter.numberOfEventTypesToDisplay()).isEqualTo(1);
 	}
 
 	@Test
@@ -51,7 +53,7 @@ public class GetAllEventTypesTest {
 		command.execute();
 
 		// then
-		assertThat(presenter.events).isNull();
+		assertThat(presenter.noEventsReturned());
 		assertThat(presenter.code).isEqualTo(MessageCode.INTERNAL_SERVER_ERROR);
 	}
 
@@ -66,11 +68,44 @@ public class GetAllEventTypesTest {
 
 		}
 
+		public int numberOfEventTypesToDisplay() {
+			return isEmpty(events) ? 0 : events.size();
+		}
+
+		public boolean noEventsReturned() {
+			return events == null;
+		}
+
 		@Override
 		public void sendMessage(MessageCode code) {
 			this.code = code;
 
 		}
 	};
+
+	private EventType createEventType(Long id, String name, boolean isDisplayed) {
+		return new EventType() {
+
+			@Override
+			public String getName() {
+				return name;
+			}
+
+			@Override
+			public Long getId() {
+				return id;
+			}
+
+			@Override
+			public List<EventAttribute> getAttributes() {
+				return null;
+			}
+
+			@Override
+			public boolean isDisplayed() {
+				return isDisplayed;
+			}
+		};
+	}
 
 }

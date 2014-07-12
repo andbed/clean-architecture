@@ -2,16 +2,17 @@ package com.github.andbed.cleanarch.eventtype.core.usecase.entity;
 
 import java.util.List;
 
-public class EventType {
+public abstract class EventType {
 
-	String name;
+	public abstract Long getId();
 
-	List<EventAttribute> attributes;
+	public abstract String getName();
+
+	public abstract List<EventAttribute> getAttributes();
+
+	public abstract boolean isDisplayed();
 
 	public void calculateInheritedAttributes() {
 	}
 
-	public boolean isDisplayed() {
-		return true;
-	}
 }
