@@ -1,4 +1,4 @@
-package com.github.andbed.cleanarch.eventtype.core.gateway;
+package com.github.andbed.cleanarch.eventtype.core.boundary;
 
 import java.util.List;
 

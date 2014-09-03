@@ -1,8 +1,8 @@
-package com.github.andbed.cleanarch.eventtype.external.notification.email;
+package com.github.andbed.cleanarch.eventtype.infrastructure.notification.email;
 
 import lombok.extern.slf4j.Slf4j;
 
-import com.github.andbed.cleanarch.eventtype.core.gateway.Notifier;
+import com.github.andbed.cleanarch.eventtype.core.boundary.Notifier;
 
 @Slf4j
 public class EmailSender implements Notifier {

@@ -1,19 +1,19 @@
 package com.github.andbed.cleanarch.common;
 
+import com.github.andbed.cleanarch.eventtype.core.GetAllEventTypes;
+import com.github.andbed.cleanarch.eventtype.core.ImportEventTypes;
 import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypeRequestModel;
+import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypesFileProvider;
+import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypesFinder;
 import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypesListPresenter;
+import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypesPersister;
 import com.github.andbed.cleanarch.eventtype.core.boundary.ImportPresenter;
-import com.github.andbed.cleanarch.eventtype.core.gateway.EventTypesFileProvider;
-import com.github.andbed.cleanarch.eventtype.core.gateway.EventTypesFinder;
-import com.github.andbed.cleanarch.eventtype.core.gateway.EventTypesPersister;
-import com.github.andbed.cleanarch.eventtype.core.gateway.Notifier;
-import com.github.andbed.cleanarch.eventtype.core.gateway.XMLParser;
-import com.github.andbed.cleanarch.eventtype.core.usecase.GetAllEventTypes;
-import com.github.andbed.cleanarch.eventtype.core.usecase.ImportEventTypes;
-import com.github.andbed.cleanarch.eventtype.external.io.EventTypeFileManager;
-import com.github.andbed.cleanarch.eventtype.external.io.XMLParserSAX;
-import com.github.andbed.cleanarch.eventtype.external.notification.email.EmailSender;
-import com.github.andbed.cleanarch.eventtype.external.repository.db.EventTypeRepository;
+import com.github.andbed.cleanarch.eventtype.core.boundary.Notifier;
+import com.github.andbed.cleanarch.eventtype.core.boundary.XMLParser;
+import com.github.andbed.cleanarch.eventtype.infrastructure.io.EventTypeFileManager;
+import com.github.andbed.cleanarch.eventtype.infrastructure.io.XMLParserSAX;
+import com.github.andbed.cleanarch.eventtype.infrastructure.notification.email.EmailSender;
+import com.github.andbed.cleanarch.eventtype.infrastructure.repository.db.EventTypeRepository;
 
 public class Factory {
 

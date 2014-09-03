@@ -1,6 +1,6 @@
-package com.github.andbed.cleanarch.eventtype.external.io;
+package com.github.andbed.cleanarch.eventtype.infrastructure.io;
 
-import com.github.andbed.cleanarch.eventtype.core.gateway.EventTypesFileProvider;
+import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypesFileProvider;
 
 public class EventTypeFileManager implements EventTypesFileProvider {
 

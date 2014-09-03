@@ -10,11 +10,12 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.github.andbed.cleanarch.common.MessageCode;
+import com.github.andbed.cleanarch.eventtype.core.GetAllEventTypes;
 import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypeResponseModel;
+import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypesFinder;
 import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypesListPresenter;
-import com.github.andbed.cleanarch.eventtype.core.gateway.EventTypesFinder;
-import com.github.andbed.cleanarch.eventtype.core.usecase.entity.EventAttribute;
-import com.github.andbed.cleanarch.eventtype.core.usecase.entity.EventType;
+import com.github.andbed.cleanarch.eventtype.core.entity.EventAttribute;
+import com.github.andbed.cleanarch.eventtype.core.entity.EventType;
 
 public class GetAllEventTypesTest {
 

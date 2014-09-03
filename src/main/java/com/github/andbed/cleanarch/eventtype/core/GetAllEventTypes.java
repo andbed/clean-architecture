@@ -1,4 +1,4 @@
-package com.github.andbed.cleanarch.eventtype.core.usecase;
+package com.github.andbed.cleanarch.eventtype.core;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -6,9 +6,9 @@ import java.util.stream.Collectors;
 import com.github.andbed.cleanarch.common.Command;
 import com.github.andbed.cleanarch.common.MessageCode;
 import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypeResponseModel;
+import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypesFinder;
 import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypesListPresenter;
-import com.github.andbed.cleanarch.eventtype.core.gateway.EventTypesFinder;
-import com.github.andbed.cleanarch.eventtype.core.usecase.entity.EventType;
+import com.github.andbed.cleanarch.eventtype.core.entity.EventType;
 
 public class GetAllEventTypes implements Command {
 
