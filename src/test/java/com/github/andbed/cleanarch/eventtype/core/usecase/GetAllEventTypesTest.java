@@ -60,6 +60,46 @@ public class GetAllEventTypesTest {
 		assertThat(presenterSpy.code).isEqualTo(MessageCode.INTERNAL_SERVER_ERROR);
 	}
 
+	@Test
+	public void shouldBehaveCorrectlyWhenEmptyListReturnedFromProvider() {
+		// given
+		EventTypesFinder providerStub = new EventTypesFinder() {
+			@Override
+			public List<EventType> findAll(Optional<EventTypeRequestModel> requestModel) {
+				return newArrayList();
+			}
+		};
+		TestPresenter presenterSpy = new TestPresenter();
+		GetAllEventTypes command = new GetAllEventTypes(providerStub, presenterSpy, Optional.empty());
+
+		// when
+		command.execute();
+
+		// then
+		assertThat(presenterSpy.numberOfDisplayedItems()).isEqualTo(0);
+		assertThat(presenterSpy.code).isEqualTo(MessageCode.NOT_FOUND);
+	}
+
+	@Test
+	public void shouldBehaveCorrectlyWhenNullReturnedFromProvider() {
+		// given
+		EventTypesFinder providerStub = new EventTypesFinder() {
+			@Override
+			public List<EventType> findAll(Optional<EventTypeRequestModel> requestModel) {
+				return null;
+			}
+		};
+		TestPresenter presenterSpy = new TestPresenter();
+		GetAllEventTypes command = new GetAllEventTypes(providerStub, presenterSpy, Optional.empty());
+
+		// when
+		command.execute();
+
+		// then
+		assertThat(presenterSpy.numberOfDisplayedItems()).isEqualTo(0);
+		assertThat(presenterSpy.code).isEqualTo(MessageCode.NOT_FOUND);
+	}
+
 	class TestPresenter implements EventTypesListReceiver {
 
 		List<EventTypeResponseModel> events;

@@ -1,5 +1,7 @@
 package com.github.andbed.cleanarch.eventtype.core;
 
+import static org.springframework.util.CollectionUtils.isEmpty;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -32,7 +34,7 @@ public class GetAllEventTypes implements Command {
 		try {
 			List<EventType> allEventTypes = provider.findAll(requestModel);
 
-			if (allEventTypes.size() > 0) {
+			if (!isEmpty(allEventTypes)) {
 				List<EventTypeResponseModel> eventTypes = allEventTypes.stream()
 						.filter(e -> e.isDisplayed())
 						.map(e -> convert(e))

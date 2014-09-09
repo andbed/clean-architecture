@@ -1,5 +1,7 @@
 package com.github.andbed.cleanarch.eventtype.core;
 
+import static org.springframework.util.CollectionUtils.isEmpty;
+
 import java.util.List;
 
 import javax.inject.Named;
@@ -45,7 +47,7 @@ public class ImportEventTypes implements Command {
 
 		List<EventType> eventTypes = xmlParser.bind(EventType.class);
 
-		if (eventTypes.size() > 0) {
+		if (!isEmpty(eventTypes)) {
 
 			eventTypes.forEach(
 					e -> e.calculateInheritedAttributes());
