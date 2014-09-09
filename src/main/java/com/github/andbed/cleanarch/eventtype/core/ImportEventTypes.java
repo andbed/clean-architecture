@@ -2,15 +2,18 @@ package com.github.andbed.cleanarch.eventtype.core;
 
 import java.util.List;
 
+import javax.inject.Named;
+
 import com.github.andbed.cleanarch.common.Command;
 import com.github.andbed.cleanarch.common.MessageCode;
 import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypesFileProvider;
 import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypesPersister;
-import com.github.andbed.cleanarch.eventtype.core.boundary.ImportPresenter;
+import com.github.andbed.cleanarch.eventtype.core.boundary.ImportReceiver;
 import com.github.andbed.cleanarch.eventtype.core.boundary.Notifier;
 import com.github.andbed.cleanarch.eventtype.core.boundary.XMLParser;
 import com.github.andbed.cleanarch.eventtype.core.entity.EventType;
 
+@Named
 public class ImportEventTypes implements Command {
 
 	private static final String MESSAGE = "EventTypes were successfuly parsed and persisted";
@@ -19,9 +22,9 @@ public class ImportEventTypes implements Command {
 	private final EventTypesPersister eventTypesPersister;
 	private final Notifier notificator;
 	private final XMLParser xmlParser;
-	private final ImportPresenter presenter;
+	private final ImportReceiver presenter;
 
-	public ImportEventTypes(EventTypesFileProvider fileProvider, EventTypesPersister eventTypesPersister, Notifier notificator, XMLParser xmlParser, ImportPresenter receiver) {
+	public ImportEventTypes(EventTypesFileProvider fileProvider, EventTypesPersister eventTypesPersister, Notifier notificator, XMLParser xmlParser, ImportReceiver receiver) {
 		this.fileProvider = fileProvider;
 		this.eventTypesPersister = eventTypesPersister;
 		this.notificator = notificator;

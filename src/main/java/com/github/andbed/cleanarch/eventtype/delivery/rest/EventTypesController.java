@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.inject.Inject;
+
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.hateoas.Resources;
@@ -14,27 +16,28 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.github.andbed.cleanarch.common.Command;
-import com.github.andbed.cleanarch.common.Factory;
 import com.github.andbed.cleanarch.common.MessageCode;
+import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypeFactory;
 import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypeRequestModel;
 import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypeResponseModel;
-import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypesListPresenter;
+import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypesListReceiver;
 
 @Controller
-@RequestMapping(EventTypesListController.URL)
-public class EventTypesListController {
+@RequestMapping(EventTypesController.URL)
+public class EventTypesController {
 
 	public static final String URL = "/event";
-	private final Factory factory;
+	private final EventTypeFactory factory;
 
-	public EventTypesListController(Factory factory) {
+	@Inject
+	public EventTypesController(EventTypeFactory factory) {
 		this.factory = factory;
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<Resources<EventTypeResponseModel>> getAllEventTypes(EventTypeRequestModel requestModel) {
+	public ResponseEntity<Resources<EventTypeResponseModel>> getAllEventTypes(Optional<EventTypeRequestModel> requestModel) {
 
-		Presenter presenter = new Presenter();
+		EventTypesPresenter presenter = new EventTypesPresenter();
 		Command getAllEventTypes = factory.createGetAllEventTypesCommand(presenter, requestModel);
 
 		getAllEventTypes.execute();
@@ -44,12 +47,12 @@ public class EventTypesListController {
 	}
 
 	@Slf4j
-	static class Presenter implements EventTypesListPresenter {
+	static class EventTypesPresenter implements EventTypesListReceiver {
 
 		private Optional<List<EventTypeResponseModel>> eventTypes;
 		private Optional<MessageCode> code;
 
-		public Presenter() {
+		public EventTypesPresenter() {
 			this.eventTypes = Optional.empty();
 			this.code = Optional.empty();
 		}

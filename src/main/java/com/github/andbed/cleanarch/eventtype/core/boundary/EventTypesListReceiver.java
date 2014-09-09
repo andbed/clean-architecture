@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.github.andbed.cleanarch.common.MessageCode;
 
-public interface EventTypesListPresenter {
+public interface EventTypesListReceiver {
 
 	void sendMessage(MessageCode code);
 

@@ -1,29 +1,36 @@
 package com.github.andbed.cleanarch.eventtype.core;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
+
+import javax.inject.Named;
 
 import com.github.andbed.cleanarch.common.Command;
 import com.github.andbed.cleanarch.common.MessageCode;
+import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypeRequestModel;
 import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypeResponseModel;
 import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypesFinder;
-import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypesListPresenter;
+import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypesListReceiver;
 import com.github.andbed.cleanarch.eventtype.core.entity.EventType;
 
+@Named
 public class GetAllEventTypes implements Command {
 
 	private final EventTypesFinder provider;
-	private final EventTypesListPresenter presenter;
+	private final EventTypesListReceiver receiver;
+	private final Optional<EventTypeRequestModel> requestModel;
 
-	public GetAllEventTypes(EventTypesFinder provider, EventTypesListPresenter presenter) {
+	public GetAllEventTypes(EventTypesFinder provider, EventTypesListReceiver receiver, Optional<EventTypeRequestModel> requestModel) {
 		this.provider = provider;
-		this.presenter = presenter;
+		this.receiver = receiver;
+		this.requestModel = requestModel;
 	}
 
 	@Override
 	public void execute() {
 		try {
-			List<EventType> allEventTypes = provider.findAll();
+			List<EventType> allEventTypes = provider.findAll(requestModel);
 
 			if (allEventTypes.size() > 0) {
 				List<EventTypeResponseModel> eventTypes = allEventTypes.stream()
@@ -31,13 +38,13 @@ public class GetAllEventTypes implements Command {
 						.map(e -> convert(e))
 						.collect(Collectors.toList());
 
-				presenter.sendResult(eventTypes);
+				receiver.sendResult(eventTypes);
 
 			} else {
-				presenter.sendMessage(MessageCode.NOT_FOUND);
+				receiver.sendMessage(MessageCode.NOT_FOUND);
 			}
 		} catch (Exception e) {
-			presenter.sendMessage(MessageCode.INTERNAL_SERVER_ERROR);
+			receiver.sendMessage(MessageCode.INTERNAL_SERVER_ERROR);
 		}
 	}
 

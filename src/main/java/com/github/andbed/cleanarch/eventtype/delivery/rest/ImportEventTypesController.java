@@ -7,18 +7,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.github.andbed.cleanarch.common.Command;
-import com.github.andbed.cleanarch.common.Factory;
 import com.github.andbed.cleanarch.common.MessageCode;
-import com.github.andbed.cleanarch.eventtype.core.boundary.ImportPresenter;
+import com.github.andbed.cleanarch.eventtype.core.boundary.ImportReceiver;
+import com.github.andbed.cleanarch.eventtype.infrastructure.di.SpringDIFactory;
 
 @Controller
 @RequestMapping(ImportEventTypesController.URL)
 public class ImportEventTypesController {
 
 	public static final String URL = "/eventimport";
-	private final Factory factory;
+	private final SpringDIFactory factory;
 
-	public ImportEventTypesController(Factory factory) {
+	public ImportEventTypesController(SpringDIFactory factory) {
 		this.factory = factory;
 	}
 
@@ -30,7 +30,7 @@ public class ImportEventTypesController {
 		return presenter.generateResponse();
 	}
 
-	class Presenter implements ImportPresenter {
+	class Presenter implements ImportReceiver {
 
 		private Boolean result;
 		private MessageCode code;
