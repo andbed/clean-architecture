@@ -3,6 +3,7 @@ package com.github.andbed.cleanarch.eventtype.delivery.rest;
 import static com.google.common.collect.Lists.newArrayList;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.Optional;
@@ -19,14 +20,14 @@ import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypeFactory;
 import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypeRequestModel;
 import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypesListReceiver;
 
-public class EventTypesListControllerTest {
+public class EventTypesControllerTest {
 
 	String URL = "http://localhost" + EventTypesController.URL;
 
 	@Test
 	public void shouldReturnJSONList() throws Exception {
 		// given
-		EventTypesController controller = new EventTypesController(withCommandReturningCorrectResult());
+		EventTypesController controller = new EventTypesController(withCommandStubReturningCorrectResult());
 		MockMvc mvc = MockMvcBuilders.standaloneSetup(controller).build();
 
 		// when
@@ -34,16 +35,14 @@ public class EventTypesListControllerTest {
 				.andDo(print())
 				// then
 				.andExpect(status().isOk())
-		/*
-		 * .andExpect(jsonPath("$.content[1].pk").value(2))
-		 * .andExpect(jsonPath("$.content[1].name").exists())
-		 */;
+				.andExpect(jsonPath("$.content").isArray())
+				.andExpect(jsonPath("$.links").isArray());
 	}
 
 	@Test
 	public void shouldReturnProperErrorCode() throws Exception {
 		// given
-		EventTypesController controller = new EventTypesController(withCommandThrowingError());
+		EventTypesController controller = new EventTypesController(withCommandStubThrowingError());
 		MockMvc mvc = MockMvcBuilders.standaloneSetup(controller).build();
 
 		// when
@@ -54,7 +53,7 @@ public class EventTypesListControllerTest {
 
 	}
 
-	private EventTypeFactory withCommandReturningCorrectResult() {
+	private EventTypeFactory withCommandStubReturningCorrectResult() {
 		return new EventTypeFactory() {
 			@Override
 			public Command createGetAllEventTypesCommand(EventTypesListReceiver presenter, Optional<EventTypeRequestModel> requestModel) {
@@ -69,7 +68,7 @@ public class EventTypesListControllerTest {
 		};
 	}
 
-	private EventTypeFactory withCommandThrowingError() {
+	private EventTypeFactory withCommandStubThrowingError() {
 		return new EventTypeFactory() {
 			@Override
 			public Command createGetAllEventTypesCommand(EventTypesListReceiver presenter, Optional<EventTypeRequestModel> requestModel) {
