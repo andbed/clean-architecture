@@ -100,7 +100,7 @@ public class GetAllEventTypesTest {
 		assertThat(presenterSpy.code).isEqualTo(MessageCode.NOT_FOUND);
 	}
 
-	class TestPresenter implements EventTypesListReceiver {
+	public static class TestPresenter implements EventTypesListReceiver {
 
 		List<EventTypeResponseModel> events;
 		MessageCode code;

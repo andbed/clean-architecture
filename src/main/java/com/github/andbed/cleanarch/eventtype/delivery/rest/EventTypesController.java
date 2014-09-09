@@ -47,7 +47,7 @@ public class EventTypesController {
 	}
 
 	@Slf4j
-	static class EventTypesPresenter implements EventTypesListReceiver {
+	public static class EventTypesPresenter implements EventTypesListReceiver {
 
 		private Optional<List<EventTypeResponseModel>> eventTypes;
 		private Optional<MessageCode> code;

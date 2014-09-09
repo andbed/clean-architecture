@@ -19,9 +19,9 @@ import com.github.andbed.cleanarch.eventtype.core.entity.EventType;
 @Named
 public class GetAllEventTypes implements Command {
 
-	private final EventTypesFinder provider;
-	private final EventTypesListReceiver receiver;
-	private final Optional<EventTypeRequestModel> requestModel;
+	protected final EventTypesFinder provider;
+	protected final EventTypesListReceiver receiver;
+	protected final Optional<EventTypeRequestModel> requestModel;
 
 	public GetAllEventTypes(EventTypesFinder provider, EventTypesListReceiver receiver, Optional<EventTypeRequestModel> requestModel) {
 		this.provider = provider;
