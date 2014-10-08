@@ -75,7 +75,7 @@ public class EventTypesControllerTest {
 				return new GetAllEventTypes(null, presenter, requestModel) {
 					@Override
 					public void execute() {
-						receiver.sendMessage(MessageCode.INTERNAL_SERVER_ERROR);
+						receiver.sendServerErrorMessage(MessageCode.INTERNAL_SERVER_ERROR);
 					}
 
 				};

@@ -6,7 +6,9 @@ import com.github.andbed.cleanarch.common.MessageCode;
 
 public interface EventTypesListReceiver {
 
-	void sendMessage(MessageCode code);
+	void sendServerErrorMessage(MessageCode code);
 
-	void sendResult(List<EventTypeResponseModel> events);
+    void sendClientErrorMessage(MessageCode code);
+
+	void sendResult(List<EventTypeShortResponseModel> events);
 }

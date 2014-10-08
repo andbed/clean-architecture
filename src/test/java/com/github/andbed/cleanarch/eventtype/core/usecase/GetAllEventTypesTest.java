@@ -12,7 +12,7 @@ import org.junit.Test;
 import com.github.andbed.cleanarch.common.MessageCode;
 import com.github.andbed.cleanarch.eventtype.core.GetAllEventTypes;
 import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypeRequestModel;
-import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypeResponseModel;
+import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypeShortResponseModel;
 import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypesFinder;
 import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypesListReceiver;
 import com.github.andbed.cleanarch.eventtype.core.entity.EventAttribute;
@@ -102,22 +102,26 @@ public class GetAllEventTypesTest {
 
 	public static class TestPresenter implements EventTypesListReceiver {
 
-		List<EventTypeResponseModel> events;
+		List<EventTypeShortResponseModel> events;
 		MessageCode code;
 
-		@Override
-		public void sendResult(List<EventTypeResponseModel> events) {
+        @Override
+        public void sendServerErrorMessage(MessageCode code) {
+            this.code = code;
+        }
+
+        @Override
+        public void sendClientErrorMessage(MessageCode code) {
+            this.code = code;
+        }
+
+        @Override
+		public void sendResult(List<EventTypeShortResponseModel> events) {
 			this.events = events;
-
-		}
-
-		@Override
-		public void sendMessage(MessageCode code) {
-			this.code = code;
 		}
 
 		public int numberOfDisplayedItems() {
-			return isEmpty(events) ? 0 : events.size();
+            return isEmpty(events) ? 0 : events.size();
 		}
 
 	};
@@ -141,7 +145,7 @@ public class GetAllEventTypesTest {
 			}
 
 			@Override
-			public boolean isDisplayed() {
+			public boolean isVisible() {
 				return isDisplayed;
 			}
 		};

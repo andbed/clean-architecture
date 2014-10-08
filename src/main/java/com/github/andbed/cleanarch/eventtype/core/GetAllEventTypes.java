@@ -11,7 +11,7 @@ import javax.inject.Named;
 import com.github.andbed.cleanarch.common.Command;
 import com.github.andbed.cleanarch.common.MessageCode;
 import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypeRequestModel;
-import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypeResponseModel;
+import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypeShortResponseModel;
 import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypesFinder;
 import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypesListReceiver;
 import com.github.andbed.cleanarch.eventtype.core.entity.EventType;
@@ -35,22 +35,20 @@ public class GetAllEventTypes implements Command {
 			List<EventType> allEventTypes = provider.findAll(requestModel);
 
 			if (!isEmpty(allEventTypes)) {
-				List<EventTypeResponseModel> eventTypes = allEventTypes.stream()
-						.filter(e -> e.isDisplayed())
-						.map(e -> convert(e))
+				List<EventTypeShortResponseModel> eventTypes = allEventTypes.stream()
+						.filter(EventType::isVisible)
+						.map(e -> e.toShortEventType())
 						.collect(Collectors.toList());
 
 				receiver.sendResult(eventTypes);
 
 			} else {
-				receiver.sendMessage(MessageCode.NOT_FOUND);
+				receiver.sendClientErrorMessage(MessageCode.NOT_FOUND);
 			}
+
 		} catch (Exception e) {
-			receiver.sendMessage(MessageCode.INTERNAL_SERVER_ERROR);
+			receiver.sendServerErrorMessage(MessageCode.INTERNAL_SERVER_ERROR);
 		}
 	}
 
-	private EventTypeResponseModel convert(EventType e) {
-		return new EventTypeResponseModel();
-	}
 }

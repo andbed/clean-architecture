@@ -19,7 +19,7 @@ import com.github.andbed.cleanarch.common.Command;
 import com.github.andbed.cleanarch.common.MessageCode;
 import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypeFactory;
 import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypeRequestModel;
-import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypeResponseModel;
+import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypeShortResponseModel;
 import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypesListReceiver;
 
 @Controller
@@ -35,12 +35,12 @@ public class EventTypesController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<Resources<EventTypeResponseModel>> getAllEventTypes(Optional<EventTypeRequestModel> requestModel) {
+	public ResponseEntity<Resources<EventTypeShortResponseModel>> getAllEventTypes(Optional<EventTypeRequestModel> requestModel) {
 
 		EventTypesPresenter presenter = new EventTypesPresenter();
-		Command getAllEventTypes = factory.createGetAllEventTypesCommand(presenter, requestModel);
+		Command getAllEventTypesCommand = factory.createGetAllEventTypesCommand(presenter, requestModel);
 
-		getAllEventTypes.execute();
+		getAllEventTypesCommand.execute();
 
 		return presenter.generateResponse();
 
@@ -49,28 +49,41 @@ public class EventTypesController {
 	@Slf4j
 	public static class EventTypesPresenter implements EventTypesListReceiver {
 
-		private Optional<List<EventTypeResponseModel>> eventTypes;
-		private Optional<MessageCode> code;
+        private Optional<List<EventTypeShortResponseModel>> eventTypes;
+		private Optional<MessageCode> serverErrorCode;
+        private Optional<MessageCode> clientErrorCode;
 
 		public EventTypesPresenter() {
 			this.eventTypes = Optional.empty();
-			this.code = Optional.empty();
+			this.serverErrorCode = Optional.empty();
+            this.clientErrorCode = Optional.empty();
 		}
 
-		public ResponseEntity<Resources<EventTypeResponseModel>> generateResponse() {
-			return code.isPresent() ?
-					new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR) :
-					new ResponseEntity<>(new Resources<>(eventTypes.orElse(new ArrayList<>())), HttpStatus.OK);
+		public ResponseEntity<Resources<EventTypeShortResponseModel>> generateResponse() {
+			return eventTypes.isPresent() ?
+                    new ResponseEntity<>(new Resources<EventTypeShortResponseModel>(eventTypes.orElse(new ArrayList<>())),
+                            HttpStatus.OK) :
+                    createErrorResponse();
 		}
 
-		@Override
-		public void sendMessage(MessageCode code) {
-			this.code = Optional.ofNullable(code);
-			log.debug(code.toString());
-		}
+        private ResponseEntity createErrorResponse() {
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
 
-		@Override
-		public void sendResult(List<EventTypeResponseModel> eventTypes) {
+        @Override
+        public void sendServerErrorMessage(MessageCode code) {
+            this.serverErrorCode = Optional.ofNullable(code);
+            log.debug(code.toString());
+        }
+
+        @Override
+        public void sendClientErrorMessage(MessageCode code) {
+            this.clientErrorCode = Optional.ofNullable(code);
+            log.debug(code.toString());
+        }
+
+        @Override
+		public void sendResult(List<EventTypeShortResponseModel> eventTypes) {
 			this.eventTypes = Optional.ofNullable(eventTypes);
 		}
 	};

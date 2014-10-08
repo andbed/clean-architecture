@@ -29,7 +29,7 @@ public class EventTypeJPA extends EventType {
 	@Column(name = "attributes")
 	String commaSeparatedAttributes;
 
-	boolean displayed;
+	boolean visible;
 
 	@Override
 	public List<EventAttribute> getAttributes() {

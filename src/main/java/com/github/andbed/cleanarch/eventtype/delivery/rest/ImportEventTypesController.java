@@ -27,6 +27,7 @@ public class ImportEventTypesController {
 		Presenter presenter = new Presenter();
 		Command importEventTypes = factory.createImportEventTypesCommand(presenter);
 		importEventTypes.execute();
+
 		return presenter.generateResponse();
 	}
 
