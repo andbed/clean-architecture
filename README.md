@@ -17,6 +17,6 @@ Next TODOs:
 * Implement some real functionality for a couple of use cases
 
 Changelog:
-version 1.0 - prepared for Confitura 2014, contained only basic project structure
-version 1.1 - added stand-alone controller tests and Spring support
+* version 1.0 - prepared for Confitura 2014, contained only basic project structure
+* version 1.1 - added stand-alone controller tests and Spring DI support
  
