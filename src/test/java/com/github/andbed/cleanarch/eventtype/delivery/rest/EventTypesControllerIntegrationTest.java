@@ -20,7 +20,7 @@ import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypeFactory;
 import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypeRequestModel;
 import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypesListReceiver;
 
-public class EventTypesControllerTest {
+public class EventTypesControllerIntegrationTest {
 
 	String URL = "http://localhost" + EventTypesController.URL;
 
@@ -60,7 +60,7 @@ public class EventTypesControllerTest {
 				return new GetAllEventTypes(null, presenter, requestModel) {
 					@Override
 					public void execute() {
-						receiver.sendResult(newArrayList());
+						presenter.sendResult(newArrayList());
 					}
 
 				};
@@ -75,7 +75,7 @@ public class EventTypesControllerTest {
 				return new GetAllEventTypes(null, presenter, requestModel) {
 					@Override
 					public void execute() {
-						receiver.sendServerErrorMessage(MessageCode.INTERNAL_SERVER_ERROR);
+						presenter.sendServerErrorMessage(MessageCode.INTERNAL_SERVER_ERROR);
 					}
 
 				};

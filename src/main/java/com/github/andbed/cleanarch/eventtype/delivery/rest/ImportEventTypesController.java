@@ -44,7 +44,7 @@ public class ImportEventTypesController {
 		public ResponseEntity<Boolean> generateResponse() {
 			return code == null ?
 					new ResponseEntity<>(result, HttpStatus.OK) :
-					new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+					new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
 		@Override

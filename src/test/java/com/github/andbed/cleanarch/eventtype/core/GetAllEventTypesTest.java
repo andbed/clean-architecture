@@ -1,4 +1,4 @@
-package com.github.andbed.cleanarch.eventtype.core.usecase;
+package com.github.andbed.cleanarch.eventtype.core;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static org.assertj.core.api.Assertions.assertThat;

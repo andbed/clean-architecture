@@ -15,7 +15,6 @@ import com.github.andbed.cleanarch.eventtype.core.boundary.Notifier;
 import com.github.andbed.cleanarch.eventtype.core.boundary.XMLParser;
 import com.github.andbed.cleanarch.eventtype.core.entity.EventType;
 
-@Named
 public class ImportEventTypes implements Command {
 
 	private static final String MESSAGE = "EventTypes were successfuly parsed and persisted";

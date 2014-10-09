@@ -38,7 +38,8 @@ public class EventTypesController {
 	public ResponseEntity<Resources<EventTypeShortResponseModel>> getAllEventTypes(Optional<EventTypeRequestModel> requestModel) {
 
 		EventTypesPresenter presenter = new EventTypesPresenter();
-		Command getAllEventTypesCommand = factory.createGetAllEventTypesCommand(presenter, requestModel);
+		Command getAllEventTypesCommand =
+                factory.createGetAllEventTypesCommand(presenter, requestModel);
 
 		getAllEventTypesCommand.execute();
 
