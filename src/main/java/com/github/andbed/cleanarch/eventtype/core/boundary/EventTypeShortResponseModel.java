@@ -8,4 +8,5 @@ import lombok.experimental.Accessors;
 public class EventTypeShortResponseModel {
     Long id;
     String name;
+    Long number;
 }

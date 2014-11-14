@@ -68,6 +68,7 @@ public class EventTypesController {
 		}
 
         private ResponseEntity createErrorResponse() {
+
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 

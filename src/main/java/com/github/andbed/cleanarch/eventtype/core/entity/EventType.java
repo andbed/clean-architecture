@@ -8,16 +8,16 @@ import java.util.stream.Collectors;
 
 public abstract class EventType {
 
-	public abstract Long getId();
+    public abstract Long getId();
 
-	public abstract String getName();
+    public abstract String getName();
 
-	public abstract List<EventAttribute> getAttributes();
+    public abstract List<EventAttribute> getAttributes();
 
-	public abstract boolean isVisible();
+    public abstract boolean isVisible();
 
-	public void calculateInheritedAttributes() {
-	}
+    public void calculateInheritedAttributes() {
+    }
 
     public EventTypeShortResponseModel toShortEventType() {
         return new EventTypeShortResponseModel()
