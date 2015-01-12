@@ -1,9 +1,11 @@
 package com.github.andbed.cleanarch.eventtype.core.boundary;
 
+import java.io.IOException;
+
 public interface EventTypesFileProvider {
 
-	String findEventTypesFile();
+	String findEventTypesFile() throws IOException;
 
-	String findEventTypesXSD();
+	String findEventTypesXSD() throws  IOException;
 
 }

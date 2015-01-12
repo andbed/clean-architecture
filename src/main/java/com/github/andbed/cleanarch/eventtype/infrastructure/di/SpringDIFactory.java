@@ -15,7 +15,7 @@ import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypesListReceive
 import com.github.andbed.cleanarch.eventtype.core.boundary.ImportReceiver;
 import com.github.andbed.cleanarch.eventtype.core.boundary.Notifier;
 import com.github.andbed.cleanarch.eventtype.core.boundary.XMLParser;
-import com.github.andbed.cleanarch.eventtype.infrastructure.repository.db.EventTypeRepository;
+import com.github.andbed.cleanarch.eventtype.infrastructure.repository.db.jpa.EventTypeRepository;
 
 @Named
 public class SpringDIFactory implements EventTypeFactory {

@@ -1,4 +1,4 @@
-package com.github.andbed.cleanarch.eventtype.infrastructure.repository.db;
+package com.github.andbed.cleanarch.eventtype.infrastructure.repository.db.jpa;
 
 import java.util.ArrayList;
 import java.util.List;

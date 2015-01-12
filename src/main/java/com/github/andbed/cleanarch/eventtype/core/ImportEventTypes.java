@@ -1,7 +1,6 @@
 package com.github.andbed.cleanarch.eventtype.core;
 
-import static org.springframework.util.CollectionUtils.isEmpty;
-
+import java.io.IOException;
 import java.util.List;
 
 import javax.inject.Named;
@@ -35,8 +34,16 @@ public class ImportEventTypes implements Command {
 
 	@Override
 	public void execute() {
-		String xmlPath = fileProvider.findEventTypesFile();
-		String xsdPath = fileProvider.findEventTypesXSD();
+
+        String xmlPath, xsdPath;
+
+        try {
+            xmlPath = fileProvider.findEventTypesFile();
+            xsdPath = fileProvider.findEventTypesXSD();
+        } catch (IOException ex) {
+            presenter.sendMessage(MessageCode.FILE_NOT_FOUND);
+            return;
+        }
 
 		boolean isValidFile = xmlParser.isValid(xmlPath, xsdPath);
 		if (!isValidFile) {
@@ -46,7 +53,7 @@ public class ImportEventTypes implements Command {
 
 		List<EventType> eventTypes = xmlParser.bind(EventType.class);
 
-		if (!isEmpty(eventTypes)) {
+		if (!eventTypes.isEmpty()) {
 
 			eventTypes.forEach(
 					e -> e.calculateInheritedAttributes());

@@ -86,7 +86,7 @@ public class GetAllEventTypesTest {
 		EventTypesFinder providerStub = new EventTypesFinder() {
 			@Override
 			public List<EventType> findAll(Optional<EventTypeRequestModel> requestModel) {
-				return null;
+				return newArrayList();
 			}
 		};
 		TestPresenter presenterSpy = new TestPresenter();

@@ -17,13 +17,21 @@ public class EventTypeRestRepo implements EventTypesFinder, EventTypesPersister 
 
 
     @Override
-    public List<EventType> findAll(Optional<EventTypeRequestModel> requestModel) {
+    public List<EventType> findAll(Optional<EventTypeRequestModel> request) {
+
         return events.stream()
-                .filter(e -> e.getName().equals(requestModel.get().getSearchTerm().get()))
+                .filter(e -> nameIsEqualToOrAll(e, request.flatMap(EventTypeRequestModel::getSearchTerm)))
                 .sorted(Comparator.comparing(EventTypeFromRest::getName))
                 .limit(100)
                 .collect(Collectors.toList());
     }
+
+
+    private boolean nameIsEqualToOrAll(EventTypeFromRest e, Optional<String> search) {
+        return search.isPresent() ? e.getName().equals(search.get()) : true;
+
+    }
+
 
     @Override
     public void persist(List<EventType> eventTypes) {
