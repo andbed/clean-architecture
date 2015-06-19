@@ -1,7 +1,7 @@
 package com.github.andbed.cleanarch.eventtype.core.entity;
 
-import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypeFullResponseModel;
-import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypeShortResponseModel;
+import com.github.andbed.cleanarch.eventtype.core.boundary.provide.EventTypeFullResponseModel;
+import com.github.andbed.cleanarch.eventtype.core.boundary.provide.EventTypeShortResponseModel;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -29,7 +29,9 @@ public abstract class EventType {
         return new EventTypeFullResponseModel()
                 .setName(getName())
                 .setId(getId())
-                .setAttributeNames(getAttributes().stream().map(a -> a.getName()).collect(Collectors.toList()));
+                .setAttributeNames(getAttributes().stream()
+                		.map(a -> a.getName())
+                		.collect(Collectors.toList()));
     }
 
 }

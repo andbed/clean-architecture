@@ -4,21 +4,21 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import com.github.andbed.cleanarch.common.Command;
-import com.github.andbed.cleanarch.common.MessageCode;
-import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypeRequestModel;
-import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypeShortResponseModel;
-import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypesFinder;
-import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypesListReceiver;
+import com.github.andbed.cleanarch.eventtype.core.boundary.MessageCode;
+import com.github.andbed.cleanarch.eventtype.core.boundary.provide.Command;
+import com.github.andbed.cleanarch.eventtype.core.boundary.provide.EventTypeRequestModel;
+import com.github.andbed.cleanarch.eventtype.core.boundary.provide.EventTypeShortResponseModel;
+import com.github.andbed.cleanarch.eventtype.core.boundary.provide.EventTypesListPresenter;
+import com.github.andbed.cleanarch.eventtype.core.boundary.require.EventTypesFinder;
 import com.github.andbed.cleanarch.eventtype.core.entity.EventType;
 
 public class GetAllEventTypes implements Command {
 
 	protected final EventTypesFinder provider;
-	protected final EventTypesListReceiver presenter;
+	protected final EventTypesListPresenter presenter;
 	protected final Optional<EventTypeRequestModel> requestModel;
 
-	public GetAllEventTypes(EventTypesFinder provider, EventTypesListReceiver presenter, Optional<EventTypeRequestModel> requestModel) {
+	public GetAllEventTypes(EventTypesFinder provider, EventTypesListPresenter presenter, Optional<EventTypeRequestModel> requestModel) {
 		this.provider = provider;
 		this.presenter = presenter;
 		this.requestModel = requestModel;

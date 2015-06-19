@@ -1,4 +1,4 @@
-package com.github.andbed.cleanarch.common;
+package com.github.andbed.cleanarch.eventtype.core.boundary;
 
 public enum MessageCode {
 	NOT_FOUND,

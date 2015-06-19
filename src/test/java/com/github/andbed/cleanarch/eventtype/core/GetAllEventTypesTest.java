@@ -9,12 +9,12 @@ import java.util.Optional;
 
 import org.junit.Test;
 
-import com.github.andbed.cleanarch.common.MessageCode;
 import com.github.andbed.cleanarch.eventtype.core.GetAllEventTypes;
-import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypeRequestModel;
-import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypeShortResponseModel;
-import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypesFinder;
-import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypesListReceiver;
+import com.github.andbed.cleanarch.eventtype.core.boundary.MessageCode;
+import com.github.andbed.cleanarch.eventtype.core.boundary.provide.EventTypeRequestModel;
+import com.github.andbed.cleanarch.eventtype.core.boundary.provide.EventTypeShortResponseModel;
+import com.github.andbed.cleanarch.eventtype.core.boundary.provide.EventTypesListPresenter;
+import com.github.andbed.cleanarch.eventtype.core.boundary.require.EventTypesFinder;
 import com.github.andbed.cleanarch.eventtype.core.entity.EventAttribute;
 import com.github.andbed.cleanarch.eventtype.core.entity.EventType;
 
@@ -81,7 +81,7 @@ public class GetAllEventTypesTest {
 	}
 
 
-	public static class TestPresenter implements EventTypesListReceiver {
+	public static class TestPresenter implements EventTypesListPresenter {
 
 		List<EventTypeShortResponseModel> events;
 		MessageCode code;

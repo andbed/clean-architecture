@@ -5,16 +5,16 @@ import java.util.Optional;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import com.github.andbed.cleanarch.common.Command;
 import com.github.andbed.cleanarch.eventtype.core.GetAllEventTypes;
 import com.github.andbed.cleanarch.eventtype.core.ImportEventTypes;
-import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypeFactory;
-import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypeRequestModel;
-import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypesFileProvider;
-import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypesListReceiver;
-import com.github.andbed.cleanarch.eventtype.core.boundary.ImportReceiver;
-import com.github.andbed.cleanarch.eventtype.core.boundary.Notifier;
-import com.github.andbed.cleanarch.eventtype.core.boundary.XMLParser;
+import com.github.andbed.cleanarch.eventtype.core.boundary.provide.Command;
+import com.github.andbed.cleanarch.eventtype.core.boundary.provide.EventTypeFactory;
+import com.github.andbed.cleanarch.eventtype.core.boundary.provide.EventTypeRequestModel;
+import com.github.andbed.cleanarch.eventtype.core.boundary.provide.EventTypesListPresenter;
+import com.github.andbed.cleanarch.eventtype.core.boundary.provide.ImportPresenter;
+import com.github.andbed.cleanarch.eventtype.core.boundary.require.EventTypesFileProvider;
+import com.github.andbed.cleanarch.eventtype.core.boundary.require.Notifier;
+import com.github.andbed.cleanarch.eventtype.core.boundary.require.XMLParser;
 import com.github.andbed.cleanarch.eventtype.infrastructure.repository.db.jpa.EventTypeRepository;
 
 @Named
@@ -34,11 +34,11 @@ public class SpringDIFactory implements EventTypeFactory {
 	}
 
 	@Override
-	public Command createGetAllEventTypesCommand(EventTypesListReceiver presenter, Optional<EventTypeRequestModel> requestModel) {
+	public Command createGetAllEventTypesCommand(EventTypesListPresenter presenter, Optional<EventTypeRequestModel> requestModel) {
 		return new GetAllEventTypes(repository, presenter, requestModel);
 	}
 
-	public Command createImportEventTypesCommand(ImportReceiver presenter, EventTypeRequestModel params) {
+	public Command createImportEventTypesCommand(ImportPresenter presenter, EventTypeRequestModel params) {
 		return new ImportEventTypes(fileProvider, repository, notifier, xmlParser, presenter);
 	}
 

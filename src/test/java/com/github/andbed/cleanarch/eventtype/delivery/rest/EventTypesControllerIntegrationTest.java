@@ -13,12 +13,12 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import com.github.andbed.cleanarch.common.Command;
-import com.github.andbed.cleanarch.common.MessageCode;
 import com.github.andbed.cleanarch.eventtype.core.GetAllEventTypes;
-import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypeFactory;
-import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypeRequestModel;
-import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypesListReceiver;
+import com.github.andbed.cleanarch.eventtype.core.boundary.MessageCode;
+import com.github.andbed.cleanarch.eventtype.core.boundary.provide.Command;
+import com.github.andbed.cleanarch.eventtype.core.boundary.provide.EventTypeFactory;
+import com.github.andbed.cleanarch.eventtype.core.boundary.provide.EventTypeRequestModel;
+import com.github.andbed.cleanarch.eventtype.core.boundary.provide.EventTypesListPresenter;
 
 public class EventTypesControllerIntegrationTest {
 
@@ -60,7 +60,7 @@ public class EventTypesControllerIntegrationTest {
 	private EventTypeFactory withCommandStubReturningCorrectResult() {
 		return new EventTypeFactory() {
 			@Override
-			public Command createGetAllEventTypesCommand(EventTypesListReceiver presenter, Optional<EventTypeRequestModel> requestModel) {
+			public Command createGetAllEventTypesCommand(EventTypesListPresenter presenter, Optional<EventTypeRequestModel> requestModel) {
 				return new GetAllEventTypes(null, presenter, requestModel) {
 					@Override
 					public void execute() {
@@ -75,7 +75,7 @@ public class EventTypesControllerIntegrationTest {
 	private EventTypeFactory withCommandStubThrowingError() {
 		return new EventTypeFactory() {
 			@Override
-			public Command createGetAllEventTypesCommand(EventTypesListReceiver presenter, Optional<EventTypeRequestModel> requestModel) {
+			public Command createGetAllEventTypesCommand(EventTypesListPresenter presenter, Optional<EventTypeRequestModel> requestModel) {
 				return new GetAllEventTypes(null, presenter, requestModel) {
 					@Override
 					public void execute() {

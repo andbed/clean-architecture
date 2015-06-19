@@ -3,7 +3,7 @@ package com.github.andbed.cleanarch.eventtype.infrastructure.io;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.github.andbed.cleanarch.eventtype.core.boundary.XMLParser;
+import com.github.andbed.cleanarch.eventtype.core.boundary.require.XMLParser;
 
 public class XMLParserSAX implements XMLParser {
 

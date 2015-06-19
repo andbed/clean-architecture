@@ -15,12 +15,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.github.andbed.cleanarch.common.Command;
-import com.github.andbed.cleanarch.common.MessageCode;
-import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypeFactory;
-import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypeRequestModel;
-import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypeShortResponseModel;
-import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypesListReceiver;
+import com.github.andbed.cleanarch.eventtype.core.boundary.MessageCode;
+import com.github.andbed.cleanarch.eventtype.core.boundary.provide.Command;
+import com.github.andbed.cleanarch.eventtype.core.boundary.provide.EventTypeFactory;
+import com.github.andbed.cleanarch.eventtype.core.boundary.provide.EventTypeRequestModel;
+import com.github.andbed.cleanarch.eventtype.core.boundary.provide.EventTypeShortResponseModel;
+import com.github.andbed.cleanarch.eventtype.core.boundary.provide.EventTypesListPresenter;
 
 @Controller
 @RequestMapping(EventTypesController.URL)
@@ -48,7 +48,7 @@ public class EventTypesController {
 	}
 
 	@Slf4j
-	public static class EventTypesPresenter implements EventTypesListReceiver {
+	public static class EventTypesPresenter implements EventTypesListPresenter {
 
         private Optional<List<EventTypeShortResponseModel>> eventTypes;
 		private Optional<MessageCode> serverErrorCode;

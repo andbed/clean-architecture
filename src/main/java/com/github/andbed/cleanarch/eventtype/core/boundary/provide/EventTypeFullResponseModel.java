@@ -1,4 +1,4 @@
-package com.github.andbed.cleanarch.eventtype.core.boundary;
+package com.github.andbed.cleanarch.eventtype.core.boundary.provide;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
