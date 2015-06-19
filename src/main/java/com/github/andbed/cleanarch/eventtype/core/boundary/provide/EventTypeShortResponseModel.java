@@ -6,7 +6,7 @@ import lombok.experimental.Accessors;
 @Data
 @Accessors(chain = true)
 public class EventTypeShortResponseModel {
-    Long id;
-    String name;
-    Long number;
+	Long id;
+	String name;
+	Long number;
 }

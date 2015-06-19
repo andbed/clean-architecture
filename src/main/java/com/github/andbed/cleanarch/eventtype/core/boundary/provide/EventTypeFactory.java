@@ -4,6 +4,7 @@ import java.util.Optional;
 
 public interface EventTypeFactory {
 
-	Command createGetAllEventTypesCommand(EventTypesListPresenter presenter, Optional<EventTypeRequestModel> requestModel);
+	Command createGetAllEventTypesCommand(EventTypesListPresenter presenter,
+			Optional<EventTypeRequestModel> requestModel);
 
 }

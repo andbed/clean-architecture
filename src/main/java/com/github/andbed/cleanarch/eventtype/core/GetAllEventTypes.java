@@ -18,7 +18,8 @@ public class GetAllEventTypes implements Command {
 	protected final EventTypesListPresenter presenter;
 	protected final Optional<EventTypeRequestModel> requestModel;
 
-	public GetAllEventTypes(EventTypesFinder provider, EventTypesListPresenter presenter, Optional<EventTypeRequestModel> requestModel) {
+	public GetAllEventTypes(EventTypesFinder provider, EventTypesListPresenter presenter,
+			Optional<EventTypeRequestModel> requestModel) {
 		this.provider = provider;
 		this.presenter = presenter;
 		this.requestModel = requestModel;

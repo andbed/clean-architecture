@@ -8,7 +8,7 @@ public interface EventTypesListPresenter {
 
 	void sendServerErrorMessage(MessageCode code);
 
-    void sendClientErrorMessage(MessageCode code);
+	void sendClientErrorMessage(MessageCode code);
 
 	void sendResult(List<EventTypeShortResponseModel> events);
 }

@@ -35,11 +35,12 @@ public class EventTypesController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<Resources<EventTypeShortResponseModel>> getAllEventTypes(Optional<EventTypeRequestModel> requestModel) {
+	public ResponseEntity<Resources<EventTypeShortResponseModel>> getAllEventTypes(
+			Optional<EventTypeRequestModel> requestModel) {
 
 		EventTypesPresenter presenter = new EventTypesPresenter();
 		Command getAllEventTypesCommand =
-                factory.createGetAllEventTypesCommand(presenter, requestModel);
+				factory.createGetAllEventTypesCommand(presenter, requestModel);
 
 		getAllEventTypesCommand.execute();
 
@@ -50,41 +51,42 @@ public class EventTypesController {
 	@Slf4j
 	public static class EventTypesPresenter implements EventTypesListPresenter {
 
-        private Optional<List<EventTypeShortResponseModel>> eventTypes;
+		private Optional<List<EventTypeShortResponseModel>> eventTypes;
 		private Optional<MessageCode> serverErrorCode;
-        private Optional<MessageCode> clientErrorCode;
+		private Optional<MessageCode> clientErrorCode;
 
 		public EventTypesPresenter() {
 			this.eventTypes = Optional.empty();
 			this.serverErrorCode = Optional.empty();
-            this.clientErrorCode = Optional.empty();
+			this.clientErrorCode = Optional.empty();
 		}
 
 		public ResponseEntity<Resources<EventTypeShortResponseModel>> generateResponse() {
 			return eventTypes.isPresent() ?
-                    new ResponseEntity<>(new Resources<EventTypeShortResponseModel>(eventTypes.orElse(new ArrayList<>())),
-                            HttpStatus.OK) :
-                    createErrorResponse();
+					new ResponseEntity<>(new Resources<EventTypeShortResponseModel>(
+							eventTypes.orElse(new ArrayList<>())),
+							HttpStatus.OK) :
+					createErrorResponse();
 		}
 
-        private ResponseEntity createErrorResponse() {
+		private ResponseEntity createErrorResponse() {
 
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+			return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 
-        @Override
-        public void sendServerErrorMessage(MessageCode code) {
-            this.serverErrorCode = Optional.ofNullable(code);
-            log.debug(code.toString());
-        }
+		@Override
+		public void sendServerErrorMessage(MessageCode code) {
+			this.serverErrorCode = Optional.ofNullable(code);
+			log.debug(code.toString());
+		}
 
-        @Override
-        public void sendClientErrorMessage(MessageCode code) {
-            this.clientErrorCode = Optional.ofNullable(code);
-            log.debug(code.toString());
-        }
+		@Override
+		public void sendClientErrorMessage(MessageCode code) {
+			this.clientErrorCode = Optional.ofNullable(code);
+			log.debug(code.toString());
+		}
 
-        @Override
+		@Override
 		public void sendResult(List<EventTypeShortResponseModel> eventTypes) {
 			this.eventTypes = Optional.ofNullable(eventTypes);
 		}

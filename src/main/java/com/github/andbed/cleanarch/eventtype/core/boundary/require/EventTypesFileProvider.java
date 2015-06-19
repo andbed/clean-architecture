@@ -6,6 +6,6 @@ public interface EventTypesFileProvider {
 
 	String findEventTypesFile() throws IOException;
 
-	String findEventTypesXSD() throws  IOException;
+	String findEventTypesXSD() throws IOException;
 
 }

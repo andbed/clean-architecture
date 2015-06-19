@@ -22,7 +22,8 @@ public class ImportEventTypes implements Command {
 	private final XMLParser xmlParser;
 	private final ImportPresenter presenter;
 
-	public ImportEventTypes(EventTypesFileProvider fileProvider, EventTypesPersister eventTypesPersister, Notifier notificator, XMLParser xmlParser, ImportPresenter receiver) {
+	public ImportEventTypes(EventTypesFileProvider fileProvider, EventTypesPersister eventTypesPersister,
+			Notifier notificator, XMLParser xmlParser, ImportPresenter receiver) {
 		this.fileProvider = fileProvider;
 		this.eventTypesPersister = eventTypesPersister;
 		this.notificator = notificator;
@@ -33,15 +34,15 @@ public class ImportEventTypes implements Command {
 	@Override
 	public void execute() {
 
-        String xmlPath, xsdPath;
+		String xmlPath, xsdPath;
 
-        try {
-            xmlPath = fileProvider.findEventTypesFile();
-            xsdPath = fileProvider.findEventTypesXSD();
-        } catch (IOException ex) {
-            presenter.sendMessage(MessageCode.FILE_NOT_FOUND);
-            return;
-        }
+		try {
+			xmlPath = fileProvider.findEventTypesFile();
+			xsdPath = fileProvider.findEventTypesXSD();
+		} catch (IOException ex) {
+			presenter.sendMessage(MessageCode.FILE_NOT_FOUND);
+			return;
+		}
 
 		boolean isValidFile = xmlParser.isValid(xmlPath, xsdPath);
 		if (!isValidFile) {

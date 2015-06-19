@@ -28,15 +28,10 @@ public class ImportEventTypesController {
 		Presenter presenter = new Presenter();
 
 		Command importEventTypes = factory.
-                createImportEventTypesCommand(presenter, params);
+				createImportEventTypesCommand(presenter, params);
 
 		importEventTypes.execute();
 	}
-
-
-
-
-
 
 	class Presenter implements ImportPresenter {
 
