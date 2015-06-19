@@ -27,7 +27,9 @@ public class EventTypesControllerIntegrationTest {
 	@Test
 	public void shouldReturnJSONList() throws Exception {
 		// given
-		EventTypesController controller = new EventTypesController(withCommandStubReturningCorrectResult());
+		EventTypesController controller =
+                new EventTypesController(
+                        withCommandStubReturningCorrectResult());
 		MockMvc mvc = MockMvcBuilders.standaloneSetup(controller).build();
 
 		// when
@@ -42,7 +44,8 @@ public class EventTypesControllerIntegrationTest {
 	@Test
 	public void shouldReturnProperErrorCode() throws Exception {
 		// given
-		EventTypesController controller = new EventTypesController(withCommandStubThrowingError());
+		EventTypesController controller =
+                new EventTypesController(withCommandStubThrowingError());
 		MockMvc mvc = MockMvcBuilders.standaloneSetup(controller).build();
 
 		// when
@@ -50,8 +53,9 @@ public class EventTypesControllerIntegrationTest {
 				.andDo(print())
 				// then
 				.andExpect(status().is5xxServerError());
-
 	}
+
+
 
 	private EventTypeFactory withCommandStubReturningCorrectResult() {
 		return new EventTypeFactory() {
@@ -75,7 +79,9 @@ public class EventTypesControllerIntegrationTest {
 				return new GetAllEventTypes(null, presenter, requestModel) {
 					@Override
 					public void execute() {
-						presenter.sendServerErrorMessage(MessageCode.INTERNAL_SERVER_ERROR);
+
+                        presenter.sendServerErrorMessage(
+                                MessageCode.INTERNAL_SERVER_ERROR);
 					}
 
 				};

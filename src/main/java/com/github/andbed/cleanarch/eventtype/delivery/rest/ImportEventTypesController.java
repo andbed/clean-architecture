@@ -1,5 +1,6 @@
 package com.github.andbed.cleanarch.eventtype.delivery.rest;
 
+import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypeRequestModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -23,13 +24,19 @@ public class ImportEventTypesController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<Boolean> importEventTypes() {
+	public void importEventTypes(EventTypeRequestModel params) {
 		Presenter presenter = new Presenter();
-		Command importEventTypes = factory.createImportEventTypesCommand(presenter);
-		importEventTypes.execute();
 
-		return presenter.generateResponse();
+		Command importEventTypes = factory.
+                createImportEventTypesCommand(presenter, params);
+
+		importEventTypes.execute();
 	}
+
+
+
+
+
 
 	class Presenter implements ImportReceiver {
 

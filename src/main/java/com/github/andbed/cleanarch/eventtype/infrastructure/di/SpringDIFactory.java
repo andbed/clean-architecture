@@ -38,7 +38,7 @@ public class SpringDIFactory implements EventTypeFactory {
 		return new GetAllEventTypes(repository, presenter, requestModel);
 	}
 
-	public Command createImportEventTypesCommand(ImportReceiver presenter) {
+	public Command createImportEventTypesCommand(ImportReceiver presenter, EventTypeRequestModel params) {
 		return new ImportEventTypes(fileProvider, repository, notifier, xmlParser, presenter);
 	}
 

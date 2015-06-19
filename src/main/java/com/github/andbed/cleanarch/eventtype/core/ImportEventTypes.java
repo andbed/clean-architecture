@@ -3,8 +3,6 @@ package com.github.andbed.cleanarch.eventtype.core;
 import java.io.IOException;
 import java.util.List;
 
-import javax.inject.Named;
-
 import com.github.andbed.cleanarch.common.Command;
 import com.github.andbed.cleanarch.common.MessageCode;
 import com.github.andbed.cleanarch.eventtype.core.boundary.EventTypesFileProvider;
