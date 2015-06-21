@@ -9,7 +9,6 @@ import java.util.Optional;
 
 import org.junit.Test;
 
-import com.github.andbed.cleanarch.eventtype.core.GetAllEventTypes;
 import com.github.andbed.cleanarch.eventtype.core.boundary.MessageCode;
 import com.github.andbed.cleanarch.eventtype.core.boundary.provide.EventTypeRequestModel;
 import com.github.andbed.cleanarch.eventtype.core.boundary.provide.EventTypeShortResponseModel;
@@ -23,13 +22,7 @@ public class GetAllEventTypesTest {
 	@Test
 	public void shouldGetCorrectItemsToDisplay() {
 		// given
-		EventTypesFinder finderStub = new EventTypesFinder() {
-			@Override
-			public List<EventType> findAll(Optional<EventTypeRequestModel> requestModel) {
-				return newArrayList(createDisplayableEventType(), createNonDisplayableEventType());
-			}
-
-		};
+		EventTypesFinder finderStub = twoItemsOneVisible();
 		TestPresenter presenterSpy = new TestPresenter();
 		GetAllEventTypes command = new GetAllEventTypes(finderStub, presenterSpy, Optional.empty());
 
@@ -43,12 +36,7 @@ public class GetAllEventTypesTest {
 	@Test
 	public void shouldHandleDBDown() {
 		// given
-		EventTypesFinder providerStub = new EventTypesFinder() {
-			@Override
-			public List<EventType> findAll(Optional<EventTypeRequestModel> requestModel) {
-				throw new RuntimeException("DB down");
-			}
-		};
+		EventTypesFinder providerStub = throwingDBException();
 		TestPresenter presenterSpy = new TestPresenter();
 		GetAllEventTypes command = new GetAllEventTypes(providerStub, presenterSpy, Optional.empty());
 
@@ -63,12 +51,7 @@ public class GetAllEventTypesTest {
 	@Test
 	public void shouldBehaveCorrectlyWhenEmptyListReturnedFromProvider() {
 		// given
-		EventTypesFinder providerStub = new EventTypesFinder() {
-			@Override
-			public List<EventType> findAll(Optional<EventTypeRequestModel> requestModel) {
-				return newArrayList();
-			}
-		};
+		EventTypesFinder providerStub = emptyRepository();
 		TestPresenter presenterSpy = new TestPresenter();
 		GetAllEventTypes command = new GetAllEventTypes(providerStub, presenterSpy, Optional.empty());
 
@@ -80,29 +63,28 @@ public class GetAllEventTypesTest {
 		assertThat(presenterSpy.code).isEqualTo(MessageCode.NOT_FOUND);
 	}
 
-
 	public static class TestPresenter implements EventTypesListPresenter {
 
 		List<EventTypeShortResponseModel> events;
 		MessageCode code;
 
-        @Override
-        public void sendServerErrorMessage(MessageCode code) {
-            this.code = code;
-        }
+		@Override
+		public void sendServerErrorMessage(MessageCode code) {
+			this.code = code;
+		}
 
-        @Override
-        public void sendClientErrorMessage(MessageCode code) {
-            this.code = code;
-        }
+		@Override
+		public void sendClientErrorMessage(MessageCode code) {
+			this.code = code;
+		}
 
-        @Override
+		@Override
 		public void sendResult(List<EventTypeShortResponseModel> events) {
 			this.events = events;
 		}
 
 		public int numberOfDisplayedItems() {
-            return isEmpty(events) ? 0 : events.size();
+			return isEmpty(events) ? 0 : events.size();
 		}
 
 	};
@@ -128,6 +110,34 @@ public class GetAllEventTypesTest {
 			@Override
 			public boolean isVisible() {
 				return isDisplayed;
+			}
+		};
+	}
+
+	private EventTypesFinder twoItemsOneVisible() {
+		return new EventTypesFinder() {
+			@Override
+			public List<EventType> findAll(Optional<EventTypeRequestModel> requestModel) {
+				return newArrayList(createDisplayableEventType(), createNonDisplayableEventType());
+			}
+
+		};
+	}
+
+	private EventTypesFinder throwingDBException() {
+		return new EventTypesFinder() {
+			@Override
+			public List<EventType> findAll(Optional<EventTypeRequestModel> requestModel) {
+				throw new RuntimeException("DB down");
+			}
+		};
+	}
+
+	private EventTypesFinder emptyRepository() {
+		return new EventTypesFinder() {
+			@Override
+			public List<EventType> findAll(Optional<EventTypeRequestModel> requestModel) {
+				return newArrayList();
 			}
 		};
 	}
