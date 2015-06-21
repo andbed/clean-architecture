@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import lombok.extern.slf4j.Slf4j;
+
 import com.github.andbed.cleanarch.eventtype.core.boundary.MessageCode;
 import com.github.andbed.cleanarch.eventtype.core.boundary.provide.Command;
 import com.github.andbed.cleanarch.eventtype.core.boundary.provide.EventTypeRequestModel;
@@ -12,6 +14,7 @@ import com.github.andbed.cleanarch.eventtype.core.boundary.provide.EventTypesLis
 import com.github.andbed.cleanarch.eventtype.core.boundary.require.EventTypesFinder;
 import com.github.andbed.cleanarch.eventtype.core.entity.EventType;
 
+@Slf4j
 public class GetAllEventTypes implements Command {
 
 	protected final EventTypesFinder provider;
@@ -43,6 +46,7 @@ public class GetAllEventTypes implements Command {
 			}
 
 		} catch (Exception e) {
+			log.debug(e.getMessage(), e);
 			presenter.sendServerErrorMessage(MessageCode.INTERNAL_SERVER_ERROR);
 		}
 	}
